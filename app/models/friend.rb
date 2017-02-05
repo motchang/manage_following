@@ -22,6 +22,7 @@
 #  last_tweet              :string
 #  profile_image_url       :string
 #  profile_image_url_https :string
+#  love                    :boolean
 #
 
 class Friend < ApplicationRecord

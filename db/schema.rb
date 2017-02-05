@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205100338) do
+ActiveRecord::Schema.define(version: 20170205120313) do
 
   create_table "authentications", force: :cascade do |t|
     t.integer  "user_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170205100338) do
     t.string   "last_tweet"
     t.string   "profile_image_url"
     t.string   "profile_image_url_https"
+    t.boolean  "love"
   end
 
   create_table "users", force: :cascade do |t|

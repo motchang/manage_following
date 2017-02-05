@@ -7,9 +7,7 @@
             th
               | icon
             th
-              | screen_name
               | name
-              | description
             th
               | follow
             th
@@ -26,6 +24,10 @@
               td
                 = image_tag f.profile_image_url_https
               td
+                - if f.love
+                  | ❤️
+                - if f.protected
+                  | 🔒
                 = link_to "@#{f.screen_name}", "https://twitter.com/#{f.screen_name}"
                 br
                 = f.name

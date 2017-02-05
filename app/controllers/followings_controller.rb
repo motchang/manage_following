@@ -16,7 +16,13 @@ class FollowingsController < ApplicationController
       config.access_token_secret  = user_auth.secret
     end
 
-    ActveRecord.transaction do
+    all_followers = []
+    client.follower_ids.each_slice(SLICE_SIZE).each do |slice|
+        client.users(slice).each do |follower|
+          all_followers << follower.id
+        end
+    end
+    ActiveRecord::Base.transaction do
       Friend.where(user: current_user).delete_all
       client.friend_ids.each_slice(SLICE_SIZE).each do |slice|
         client.users(slice).each do |friend|
@@ -40,6 +46,7 @@ class FollowingsController < ApplicationController
           a.last_tweet              = friend.status.text
           a.profile_image_url       = friend.profile_image_url
           a.profile_image_url_https = friend.profile_image_url_https
+          a.love                    = all_followers.include?(friend.id)
           a.save!
         end
       end
