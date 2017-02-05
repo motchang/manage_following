@@ -34,7 +34,7 @@ class FollowingsController < ApplicationController
           a.location                = friend.location
           a.description             = friend.description
           a.url                     = friend.url
-          a.protected               = friend.protected
+          a.private_account         = friend.protected
           a.followers_count         = friend.followers_count
           a.friends_count           = friend.friends_count
           a.listed_count            = friend.listed_count

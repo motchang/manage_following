@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205120313) do
+ActiveRecord::Schema.define(version: 20170205121524) do
 
   create_table "authentications", force: :cascade do |t|
     t.integer  "user_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20170205120313) do
     t.string   "location"
     t.text     "description"
     t.string   "url"
-    t.boolean  "protected"
+    t.boolean  "private_account"
     t.integer  "followers_count"
     t.integer  "friends_count"
     t.integer  "listed_count"

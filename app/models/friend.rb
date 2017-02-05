@@ -10,7 +10,7 @@
 #  location                :string
 #  description             :text
 #  url                     :string
-#  protected               :boolean
+#  private_account         :boolean
 #  followers_count         :integer
 #  friends_count           :integer
 #  listed_count            :integer
