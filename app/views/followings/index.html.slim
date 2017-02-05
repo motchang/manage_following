@@ -1,16 +1,14 @@
 .panel.panel-default
   .panel-body
     .table-responsive
-      table.table#datatable
+      table#datatable.table.table-bordered
         thead
           tr
             th
               | icon
             th
               | screen_name
-            th
               | name
-            th
               | description
             th
               | follow
@@ -19,6 +17,8 @@
             th
               | score
             th
+              | statuses_count
+            th
               | last_tweet
         tbody
           - @all_friends.each do |f|
@@ -26,22 +26,25 @@
               td
                 = image_tag f.profile_image_url_https
               td
-                = link_to f.screen_name, "https://twitter.com/#{f.screen_name}"
-              td
+                = link_to "@#{f.screen_name}", "https://twitter.com/#{f.screen_name}"
+                br
                 = f.name
-              td
+                br
                 = f.description
-              td
-                = f.friends_count
-              td
-                = f.followers_count
+              td.text-right
+                = number_with_delimiter f.friends_count, delimiter: ','
+              td.text-right
+                = number_with_delimiter f.followers_count, delimiter: ','
               td.text-right
                 - if f.friends_count.nonzero?
                   = sprintf("%10.2f", f.followers_count.to_f / f.friends_count.to_f)
                 - else
                   = sprintf("%10.2f", f.followers_count)
-              td
-                = f.last_tweet_at
+              td.text-right
+                = number_with_delimiter f.statuses_count, delimiter: ','
+              td.text-right
+                - unless f.last_tweet_at.nil?
+                  = f.last_tweet_at.strftime('%F')
 javascript:
   $(function() {
     $('#datatable').DataTable({

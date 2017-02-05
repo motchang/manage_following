@@ -6,8 +6,6 @@ class FollowingsController < ApplicationController
   end
 
   def refresh
-    Friend.where(user: current_user).delete_all
-
     client = Twitter::REST::Client.new do |config|
       # applicationの設定
       config.consumer_key         = Settings.twitter_key
@@ -18,29 +16,32 @@ class FollowingsController < ApplicationController
       config.access_token_secret  = user_auth.secret
     end
 
-    client.friend_ids.each_slice(SLICE_SIZE).each do |slice|
-      client.users(slice).each do |friend|
-        a = Friend.new
-        a.user                    = current_user
-        a.id_str                  = friend.id.to_s
-        a.screen_name             = friend.screen_name
-        a.name                    = friend.name
-        a.location                = friend.location
-        a.description             = friend.description
-        a.url                     = friend.url
-        a.protected               = friend.protected
-        a.followers_count         = friend.followers_count
-        a.friends_count           = friend.friends_count
-        a.listed_count            = friend.listed_count
-        a.created_at              = friend.created_at
-        a.favourites_count        = friend.favourites_count
-        a.statuses_count          = friend.statuses_count
-        a.lang                    = friend.lang
-        a.last_tweet_at           = friend.status.created_at
-        a.last_tweet              = friend.status.text
-        a.profile_image_url       = friend.profile_image_url
-        a.profile_image_url_https = friend.profile_image_url_https
-        a.save!
+    ActveRecord.transaction do
+      Friend.where(user: current_user).delete_all
+      client.friend_ids.each_slice(SLICE_SIZE).each do |slice|
+        client.users(slice).each do |friend|
+          a = Friend.new
+          a.user                    = current_user
+          a.id_str                  = friend.id.to_s
+          a.screen_name             = friend.screen_name
+          a.name                    = friend.name
+          a.location                = friend.location
+          a.description             = friend.description
+          a.url                     = friend.url
+          a.protected               = friend.protected
+          a.followers_count         = friend.followers_count
+          a.friends_count           = friend.friends_count
+          a.listed_count            = friend.listed_count
+          a.created_at              = friend.created_at
+          a.favourites_count        = friend.favourites_count
+          a.statuses_count          = friend.statuses_count
+          a.lang                    = friend.lang
+          a.last_tweet_at           = friend.status.created_at
+          a.last_tweet              = friend.status.text
+          a.profile_image_url       = friend.profile_image_url
+          a.profile_image_url_https = friend.profile_image_url_https
+          a.save!
+        end
       end
     end
     redirect_to '/followings'
