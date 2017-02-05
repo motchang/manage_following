@@ -1,0 +1,51 @@
+.panel.panel-default
+  .panel-body
+    .table-responsive
+      table.table#datatable
+        thead
+          tr
+            th
+              | icon
+            th
+              | screen_name
+            th
+              | name
+            th
+              | description
+            th
+              | follow
+            th
+              | follower
+            th
+              | score
+            th
+              | last_tweet
+        tbody
+          - @all_friends.each do |f|
+            tr
+              td
+                = image_tag f.profile_image_url_https
+              td
+                = link_to f.screen_name, "https://twitter.com/#{f.screen_name}"
+              td
+                = f.name
+              td
+                = f.description
+              td
+                = f.friends_count
+              td
+                = f.followers_count
+              td.text-right
+                - if f.friends_count.nonzero?
+                  = sprintf("%10.2f", f.followers_count.to_f / f.friends_count.to_f)
+                - else
+                  = sprintf("%10.2f", f.followers_count)
+              td
+                = f.last_tweet_at
+javascript:
+  $(function() {
+    $('#datatable').DataTable({
+      pagingType: "simple",
+      lengthMenu: [100, 200, 500]
+    });
+  });

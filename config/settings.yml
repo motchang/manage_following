@@ -1,0 +1,9 @@
+app_name: '世界の首都茨城'
+
+OBtwitter_page:  'https://twitter.com/'
+facebook_page: 'https://www.facebook.com/'
+github_page:   'https://github.com/'
+
+# Twitter OAuth Local Setting
+twitter_key:    <%= ENV['TWITTER_KEY'] %>
+twitter_secret: <%= ENV['TWITTER_SECRET'] %>
