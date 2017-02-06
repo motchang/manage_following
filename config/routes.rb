@@ -16,7 +16,7 @@ end
 
 # == Route Map
 #
-# W, [2017-02-05T19:22:07.034087 #8337]  WARN -- : You are setting a key that conflicts with a built-in method OmniAuth::AuthHash::InfoHash#name defined at /Users/motchang/src/github.com/motchang/manage_following/vendor/bundle/gems/omniauth-1.3.2/lib/omniauth/auth_hash.rb:34. This can cause unexpected behavior when accessing the key via as a property. You can still access the key via the #[] method.
+# W, [2017-02-06T13:36:47.761078 #49689]  WARN -- : You are setting a key that conflicts with a built-in method OmniAuth::AuthHash::InfoHash#name defined at /Users/motchang/src/github.com/motchang/manage_following/vendor/bundle/gems/omniauth-1.3.2/lib/omniauth/auth_hash.rb:34. This can cause unexpected behavior when accessing the key via as a property. You can still access the key via the #[] method.
 #             Prefix Verb   URI Pattern                        Controller#Action
 #               root GET    /                                  top#index
 #                    GET    /auth/:provider/callback(.:format) sessions#callback

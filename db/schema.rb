@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205121524) do
+ActiveRecord::Schema.define(version: 20170206043245) do
 
   create_table "authentications", force: :cascade do |t|
     t.integer  "user_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170205121524) do
     t.string   "profile_image_url"
     t.string   "profile_image_url_https"
     t.boolean  "love"
+    t.index ["id"], name: "sqlite_autoindex_friends_1", unique: true
   end
 
   create_table "users", force: :cascade do |t|

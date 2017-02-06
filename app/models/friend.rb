@@ -24,6 +24,10 @@
 #  profile_image_url_https :string
 #  love                    :boolean
 #
+# Indexes
+#
+#  sqlite_autoindex_friends_1  (id) UNIQUE
+#
 
 class Friend < ApplicationRecord
   belongs_to :user
