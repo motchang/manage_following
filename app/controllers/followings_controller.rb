@@ -18,14 +18,19 @@ class FollowingsController < ApplicationController
 
     all_followers = []
     client.follower_ids.each_slice(SLICE_SIZE).each do |slice|
-        client.users(slice).each do |follower|
-          all_followers << follower.id
-        end
+      client.users(slice).each do |follower|
+        all_followers << follower.id
+      end
     end
+
+    all_friends = []
     ActiveRecord::Base.transaction do
       Friend.where(user: current_user).delete_all
       client.friend_ids.each_slice(SLICE_SIZE).each do |slice|
         client.users(slice).each do |friend|
+          next if all_friends.include?(friend.id)
+
+          all_friends << friend.id
           a = Friend.new
           a.id                      = friend.id
           a.user                    = current_user
