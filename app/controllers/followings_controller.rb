@@ -27,6 +27,7 @@ class FollowingsController < ApplicationController
       client.friend_ids.each_slice(SLICE_SIZE).each do |slice|
         client.users(slice).each do |friend|
           a = Friend.new
+          a.id                      = friend.id
           a.user                    = current_user
           a.id_str                  = friend.id.to_s
           a.screen_name             = friend.screen_name
