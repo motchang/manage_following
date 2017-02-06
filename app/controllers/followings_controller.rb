@@ -28,11 +28,12 @@ class FollowingsController < ApplicationController
       Friend.where(user: current_user).delete_all
       client.friend_ids.each_slice(SLICE_SIZE).each do |slice|
         client.users(slice).each do |friend|
+          Rails.logger.info(all_friends)
+          Rails.logger.info(friend.id)
           next if all_friends.include?(friend.id)
 
           all_friends << friend.id
           a = Friend.new
-          a.id                      = friend.id
           a.user                    = current_user
           a.id_str                  = friend.id.to_s
           a.screen_name             = friend.screen_name
